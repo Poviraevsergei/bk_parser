@@ -37,7 +37,6 @@ public class DataInput {
                 allGames.add(game);
             }
         }
-        driver.close();
         return allGames;
     }
 }
