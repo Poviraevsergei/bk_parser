@@ -15,6 +15,8 @@ public class Game {
     private boolean thirdFilterComplited;
     private boolean homeBigger;
     private boolean awayBigger;
+    private String allScoreHome;
+    private String allScoreAway;
     private int scoredLastFiveMatchesHomeTeam;
     private int missedLastFiveMatchesHomeTeam;
     private int scoredLastFiveMatchesAwayTeam;
@@ -27,4 +29,6 @@ public class Game {
     private boolean missedChangedAway;
     private boolean scoreChangedHome;
     private boolean scoreChangedAway;
+    private int differenceGoalHome;
+    private int differenceGoalAway;
 }

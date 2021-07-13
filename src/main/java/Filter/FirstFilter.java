@@ -11,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FirstFilter {
+    static int counter;
+
     public List<Game> firstFilter(List<Game> list, WebDriver driver) {
         List<Game> resultList = new ArrayList<>();
         String firstUrl = "https://www.flashscore.ru/match/";
@@ -29,6 +31,13 @@ public class FirstFilter {
                 if (matcherHomePlaceInTheTable.find()) {
                     String homeTeam = String.valueOf(new StringBuilder(matcherHomePlaceInTheTable.group()));
                     int length = homeTeam.length();
+                    String allScoreHome = homeTeam.substring(length - 150, length);
+                    allScoreHome = allScoreHome.substring(allScoreHome.indexOf('>') + 1, allScoreHome.indexOf('<'));
+                    if (allScoreHome.length() < 3) {
+                        allScoreHome = String.valueOf(new StringBuilder(matcherHomePlaceInTheTable.group())).substring(length - 250, length);
+                        allScoreHome = allScoreHome.substring(allScoreHome.indexOf('>') + 1, allScoreHome.indexOf('<'));
+                    }
+                    game.setAllScoreHome(allScoreHome);
                     homeTeam = homeTeam.substring(length - 90, length);
                     homeTeam.substring(homeTeam.indexOf('>') + 1, homeTeam.indexOf('<'));
                     game.setHomePlaceInTheTable(homeTeam.substring(homeTeam.indexOf('>') + 1, homeTeam.indexOf('<')));
@@ -36,6 +45,13 @@ public class FirstFilter {
                 if (matcherAwayPlaceInTheTable.find()) {
                     String awayTeam = String.valueOf(new StringBuilder(matcherAwayPlaceInTheTable.group()));
                     int length = awayTeam.length();
+                    String allScoreAway = awayTeam.substring(length - 150, length);
+                    allScoreAway = allScoreAway.substring(allScoreAway.indexOf('>') + 1, allScoreAway.indexOf('<'));
+                    if (allScoreAway.length() < 3) {
+                        allScoreAway = String.valueOf(new StringBuilder(matcherAwayPlaceInTheTable.group())).substring(length - 250, length);
+                        allScoreAway = allScoreAway.substring(allScoreAway.indexOf('>') + 1, allScoreAway.indexOf('<'));
+                    }
+                    game.setAllScoreAway(allScoreAway);
                     awayTeam = awayTeam.substring(length - 90, length);
                     awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<'));
                     game.setAwayPlaceInTheTable(awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<')));
@@ -53,9 +69,10 @@ public class FirstFilter {
                     }
                 }
             } catch (Exception e) {
-                //System.out.println(e);
+                counter++;
             }
         }
+        System.out.println(counter + " Records don't have table!");
         return resultList;
     }
 }
