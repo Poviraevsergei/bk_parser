@@ -40,6 +40,3 @@ public class DataInput {
         return allGames;
     }
 }
-
-
-//JustCheck

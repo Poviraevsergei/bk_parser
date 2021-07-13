@@ -11,9 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FirstFilter {
-    static int count = 0;
-
     public List<Game> firstFilter(List<Game> list, WebDriver driver) {
+        List<Game> resultList = new ArrayList<>();
         String firstUrl = "https://www.flashscore.ru/match/";
         String secondUrl = "/#standings/table/overall";
 
@@ -24,7 +23,6 @@ public class FirstFilter {
                 String HTML = element.getAttribute("innerHTML");
                 String compileHome = "<div class=\"row___1rtP1QI row___2EsvbFy selected___37fwRSu \">.*" + game.getHomeTeam() + ".*";
                 String compileAway = "<div class=\"row___1rtP1QI row___2EsvbFy selected___37fwRSu \">.*" + game.getAwayTeam() + ".*";
-                // System.out.println(HTML);
 
                 Matcher matcherHomePlaceInTheTable = Pattern.compile(compileHome).matcher(HTML);
                 Matcher matcherAwayPlaceInTheTable = Pattern.compile(compileAway).matcher(HTML);
@@ -42,14 +40,22 @@ public class FirstFilter {
                     awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<'));
                     game.setAwayPlaceInTheTable(awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<')));
                 }
-                if (game.getHomePlaceInTheTable() != null && game.getAwayPlaceInTheTable() != null &&
-                        (Integer.valueOf(game.getHomePlaceInTheTable()) - Integer.valueOf(game.getAwayPlaceInTheTable()) >= 10)) {
-                    game.setFirstFilterComplited(true);
+                if (game.getHomePlaceInTheTable() != null && game.getAwayPlaceInTheTable() != null) {
+                    if (Integer.valueOf(game.getHomePlaceInTheTable()) - Integer.valueOf(game.getAwayPlaceInTheTable()) >= 10) {
+                        game.setFirstFilterComplited(true);
+                        game.setHomeBigger(true);
+                        resultList.add(game);
+                    }
+                    if (Integer.valueOf(game.getAwayPlaceInTheTable()) - Integer.valueOf(game.getHomePlaceInTheTable()) >= 10) {
+                        game.setFirstFilterComplited(true);
+                        game.setAwayBigger(true);
+                        resultList.add(game);
+                    }
                 }
             } catch (Exception e) {
                 //System.out.println(e);
             }
         }
-        return list;
+        return resultList;
     }
 }
