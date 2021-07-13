@@ -12,38 +12,35 @@ import java.util.List;
 
 public class Parser {
     public static void main(String[] args) throws IOException {
+        int firstFilterCounter = 0;
+        int secondFilterCounter = 0;
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Siarhey.Pavirayeu\\IdeaProjects\\bk_parser\\src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         List<Game> list = DataInput.inputData(driver);
-
+        System.out.println("All count of records: " + list.size());
+        for (Game game : list) {
+            System.out.println(game);
+        }
         //First filter
-        System.out.println("Filter 1: Input:" + list.size());
-        list = new FirstFilter().firstFilter(list, driver);
+        System.out.println("Filter 1 Input: " + list.size());
         for (Game game : list) {
+            FirstFilter.firstFilter(game);
             if (game.isFirstFilterComplited()) {
-                System.out.println(game);
+                firstFilterCounter++;
             }
         }
-        System.out.println("Filter 1: Output:" + list.size());
+        System.out.println("Filter 1 has " + firstFilterCounter + " success records.");
 
-        //SecondFilter
-        System.out.println("Filter 2: Input:" + list.size());
-        list = new SecondFilter().secondFilter(list, driver);
+
+        //Second filter
+        System.out.println("Filter 2 Input: " + list.size());
         for (Game game : list) {
+            SecondFilter.secondFilter(game);
             if (game.isSecondFilterComplited()) {
-                System.out.println(game);
+                secondFilterCounter++;
             }
         }
-        System.out.println("Filter 2: Output:" + list.size());
-
-        //Third filter
-        System.out.println("Filter 3: Input:" + list.size());
-        list = ThirdFilter.thirdFilter(list);
-        for (Game game : list) {
-            if (game.isThirdFilterComplited()) {
-                System.out.println(game);
-            }
-        }
-        System.out.println("Filter 3: Output:" + list.size());
+        System.out.println("Filter 2 has " + secondFilterCounter + " success records.");
+        driver.close();
     }
 }

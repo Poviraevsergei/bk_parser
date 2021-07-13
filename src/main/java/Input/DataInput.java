@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DataInput {
     public static List<Game> inputData(WebDriver driver) throws IOException {
@@ -18,7 +16,21 @@ public class DataInput {
         //Load Teams and Time
         resultList = TeamsAndTime.getTeamsAndGameTimeList(driver);
 
-        //Load
+        //Load table stats
+        String firstUrl = "https://www.flashscore.ru/match/";
+        String secondUrl = "/#standings/table/overall";
+
+        for (Game game : resultList) {
+            try {
+                driver.get(firstUrl + game.getId() + secondUrl);
+                WebElement element = driver.findElement(By.xpath("//div[@class=\"rows___1BdItrT\"]"));
+                String HTML = element.getAttribute("innerHTML");
+                TableStats.getTableStats(game, HTML);
+                ScoreAndMissedHomeAndAway.getTableStats(game,HTML);
+            } catch (Exception e) {
+                //something
+            }
+        }
         return resultList;
     }
 }
