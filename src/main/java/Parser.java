@@ -17,7 +17,6 @@ public class Parser {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Siarhey.Pavirayeu\\IdeaProjects\\bk_parser\\src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         List<Game> list = DataInput.inputData(driver);
-        System.out.println("All count of records: " + list.size());
         for (Game game : list) {
             System.out.println(game);
         }

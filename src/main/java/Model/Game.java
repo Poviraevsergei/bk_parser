@@ -2,6 +2,9 @@ package Model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Game {
     private String homeTeam;
@@ -31,4 +34,5 @@ public class Game {
     private boolean scoreChangedAway;
     private int differenceGoalHome;
     private int differenceGoalAway;
+    private List<String> coefficients = new ArrayList<>();
 }
