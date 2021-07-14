@@ -8,11 +8,15 @@ import java.util.regex.Pattern;
 
 public class ScoreAndMissedHomeAndAway {
     public static void getTableStats(Game game, String HTML) throws IOException {
-        setScoredAndMissedHome(game, HTML);
-        setScoredAndMissedAway(game, HTML);
+        try {
+            setScoredAndMissedHome(game, HTML);
+            setScoredAndMissedAway(game, HTML);
+        } catch (Exception exception) {
+            System.out.println(exception);
+        }
     }
 
-        public static void setScoredAndMissedAway(Game game, String HTML) {
+    public static void setScoredAndMissedAway(Game game, String HTML) {
         Matcher matcherAway = Pattern.compile(game.getHomeTeam() + " - " + game.getAwayTeam() + "\n.*" + game.getAwayTeam() + ".*" + "\n.*" + game.getAwayTeam() + ".*" + "\n.*" + game.getAwayTeam() + ".*" + "\n.*" + game.getAwayTeam() + ".*" + "\n.*" + game.getAwayTeam() + ".*").matcher(HTML);
 
         if (matcherAway.find()) {

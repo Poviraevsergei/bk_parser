@@ -42,8 +42,8 @@ public class TableStats {
                 awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<'));
                 game.setAwayPlaceInTheTable(awayTeam.substring(awayTeam.indexOf('>') + 1, awayTeam.indexOf('<')));
             }
-        } catch (Exception e) {
-            System.out.println("Exception TableStats");
+        } catch (Exception exception) {
+          System.out.println(exception);
         }
     }
 }

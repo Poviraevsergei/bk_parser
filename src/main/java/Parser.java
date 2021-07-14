@@ -18,6 +18,8 @@ public class Parser {
         for (Game game : list) {
             System.out.println(game);
         }
+
+
         //First filter
         System.out.println("------------------------------------------------------\nFilter 1 Input: " + list.size());
         for (Game game : list) {
@@ -45,7 +47,7 @@ public class Parser {
         //Second filter
         System.out.println("------------------------------------------------------\nFilter 2 Input: " + list.size());
         for (Game game : list) {
-            SecondFilter.secondFilter(game);
+                SecondFilter.secondFilter(game);
         }
         System.out.println("Filter 2 has " + SecondFilter.f2_counter_dont_have_data + " records without score information.");
         System.out.println("Filter 2 has " + SecondFilter.f2_counter_errorRecords + " error records.");
@@ -69,7 +71,7 @@ public class Parser {
         //Third filter
         System.out.println("------------------------------------------------------\nFilter 3 Input: " + list.size());
         for (Game game : list) {
-            ThirdFilter.thirdFilter(game);
+                ThirdFilter.thirdFilter(game);
         }
         System.out.println("Filter 3 has " + ThirdFilter.f3_counter_dont_have_data + " records without score information.");
         System.out.println("Filter 3 has " + ThirdFilter.f3_counter_errorRecords + " error records.");
@@ -93,7 +95,7 @@ public class Parser {
         //Fourth filter
         System.out.println("------------------------------------------------------\nFilter 4 Input: " + list.size());
         for (Game game : list) {
-            FourthFilter.checkCoefficient(game);
+                FourthFilter.checkCoefficient(game);
         }
         System.out.println("Filter 4 has " + (FourthFilter.f4_counter_TT + FourthFilter.f4_counter_didnt_coefficient) + " no data records ("
                 + FourthFilter.f4_counter_TT + " false_false records and "
@@ -122,6 +124,5 @@ public class Parser {
                 System.out.println(game);
             }
         }
-
     }
 }

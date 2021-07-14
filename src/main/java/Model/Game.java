@@ -36,5 +36,6 @@ public class Game {
     private boolean scoreChangedAway;
     private int differenceGoalHome;
     private int differenceGoalAway;
+    private boolean checkTable = true;
     private List<String> coefficients = new ArrayList<>();
 }
