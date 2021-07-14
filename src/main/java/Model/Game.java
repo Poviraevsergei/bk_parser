@@ -16,6 +16,8 @@ public class Game {
     private boolean firstFilterComplited;
     private boolean secondFilterComplited;
     private boolean thirdFilterComplited;
+    private boolean fourthFilterComplited;
+    private boolean fifthFilterComplited;
     private boolean homeBigger;
     private boolean awayBigger;
     private String allScoreHome;

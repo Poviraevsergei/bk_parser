@@ -12,6 +12,7 @@ public class DataInput {
     public static List<Game> inputData(WebDriver driver) throws IOException {
         String firstUrl = "https://www.flashscore.ru/match/";
         String secondUrlTable = "/#standings/table/overall";
+        String firstUrlСoefficient = "https://www.flashscorekz.com/match/";
         String secondUrlСoefficient = "/#odds-comparison/1x2-odds/full-time";
 
         //Load Teams and Time
@@ -32,13 +33,15 @@ public class DataInput {
         //Load Coefficients
         for (Game game : resultList) {
             try {
-                driver.get(firstUrl + game.getId() + secondUrlСoefficient);
-                WebElement element2 = driver.findElement(By.xpath("//div[@class=\"rows___1BdItrT\"]"));
-                String HTML2 = element2.getAttribute("innerHTML");
-                CoefficientData.setCoefficient(HTML2, game);
-            } catch (Exception e) {
+                driver.get(firstUrlСoefficient + game.getId() + secondUrlСoefficient);
+                List<WebElement> element2 = driver.findElements(By.xpath("//div[@class=\"row___1rtP1QI undefined\"]"));
+                Thread.sleep(500);
+                CoefficientData.loadCoefficients(element2, game);
+            } catch (Exception exception) {
+                System.out.println(exception);
             }
         }
+        driver.close();
         return resultList;
     }
 }
