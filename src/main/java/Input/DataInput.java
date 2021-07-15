@@ -47,6 +47,7 @@ public class DataInput {
                 counter_data_success_table_data++;
             }
         }
+        driver.close();
         System.out.println("Data: " + counter_data_dont_find_table + " records don't have table page.");
         System.out.println("Data: " + (resultList.size() - counter_data_dont_find_table) + " input table data(place,goals)");
         System.out.println("Data: " + counter_data_success_table_data + " success output table data");
@@ -61,15 +62,19 @@ public class DataInput {
             try {
                 driver.get(firstUrlСoefficient + game.getId() + secondUrlСoefficient);
                 List<WebElement> element2 = driver.findElements(By.xpath("//div[@class=\"row___1rtP1QI undefined\"]"));
-                Thread.sleep(500);
+                Thread.sleep(2000);
                 CoefficientData.loadCoefficients(element2, game);
-                counter_data_finish_coefficient++;
+                if (game.getCoefficients().size() != 0) {
+                    counter_data_finish_coefficient++;
+                } else {
+                    counter_data_dont_find_coefficient++;
+                }
             } catch (Exception exception) {
                 counter_data_dont_find_coefficient++;
             }
         }
-        System.out.println("Data: " + counter_data_start_coefficient + " records records input data coefficient.");
-        System.out.println("Data: " + counter_data_success_table_data + " success output coefficient data");
+        System.out.println("Data: " + counter_data_start_coefficient + " records input data coefficient.");
+        System.out.println("Data: " + counter_data_finish_coefficient + " success output coefficient data");
         System.out.println("Data: " + counter_data_dont_find_coefficient + " records don't have coefficient page.");
         driver.close();
         System.out.println("------------------------------------------------------");

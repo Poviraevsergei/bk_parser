@@ -1,9 +1,7 @@
-import Filter.FirstFilter;
-import Filter.FourthFilter;
-import Filter.SecondFilter;
-import Filter.ThirdFilter;
+import Filter.*;
 import Input.DataInput;
 import Model.Game;
+import Output.Stats;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -18,7 +16,6 @@ public class Parser {
         for (Game game : list) {
             System.out.println(game);
         }
-
 
         //First filter
         System.out.println("------------------------------------------------------\nFilter 1 Input: " + list.size());
@@ -47,7 +44,7 @@ public class Parser {
         //Second filter
         System.out.println("------------------------------------------------------\nFilter 2 Input: " + list.size());
         for (Game game : list) {
-                SecondFilter.secondFilter(game);
+            SecondFilter.secondFilter(game);
         }
         System.out.println("Filter 2 has " + SecondFilter.f2_counter_dont_have_data + " records without score information.");
         System.out.println("Filter 2 has " + SecondFilter.f2_counter_errorRecords + " error records.");
@@ -71,7 +68,7 @@ public class Parser {
         //Third filter
         System.out.println("------------------------------------------------------\nFilter 3 Input: " + list.size());
         for (Game game : list) {
-                ThirdFilter.thirdFilter(game);
+            ThirdFilter.thirdFilter(game);
         }
         System.out.println("Filter 3 has " + ThirdFilter.f3_counter_dont_have_data + " records without score information.");
         System.out.println("Filter 3 has " + ThirdFilter.f3_counter_errorRecords + " error records.");
@@ -95,15 +92,14 @@ public class Parser {
         //Fourth filter
         System.out.println("------------------------------------------------------\nFilter 4 Input: " + list.size());
         for (Game game : list) {
-                FourthFilter.checkCoefficient(game);
+            FourthFilter.checkCoefficient(game);
         }
         System.out.println("Filter 4 has " + (FourthFilter.f4_counter_TT + FourthFilter.f4_counter_didnt_coefficient) + " no data records ("
                 + FourthFilter.f4_counter_TT + " false_false records and "
                 + FourthFilter.f4_counter_didnt_coefficient + " don't have coefficient).");
-        System.out.println("Filter 4 has " + FourthFilter.f4_counter_ErrorRecords + " error records.");
+        System.out.println("Filter 4 has " + FourthFilter.f4_counter_errorRecords + " error records.");
         System.out.println("Filter 4 has " + FourthFilter.f4_counter_filtered + " filtered records.");
-        int allFourthRecords = (FourthFilter.f4_counter_TT + FourthFilter.f4_counter_didnt_coefficient) + FourthFilter.f4_counter_ErrorRecords + FourthFilter.f4_counter_filtered + FourthFilter.f4_counter_success;
-
+        int allFourthRecords = (FourthFilter.f4_counter_TT + FourthFilter.f4_counter_didnt_coefficient) + FourthFilter.f4_counter_errorRecords + FourthFilter.f4_counter_filtered + FourthFilter.f4_counter_success;
         System.out.println("Filter 4 has " + FourthFilter.f4_counter_success + " success records.");
         if (list.size() != allFourthRecords) {
             System.err.println("Filter 4 has FAILED record status. Need " + list.size() + ", has "
@@ -119,10 +115,33 @@ public class Parser {
                 }
             }
         }
+
+        //Fifth filter
+        System.out.println("------------------------------------------------------\nFilter 5 Input: " + list.size());
         for (Game game : list) {
-            if (game.isFourthFilterComplited()) {
-                System.out.println(game);
+            FifthFilter.fifthFilter(game);
+        }
+        System.out.println("Filter 5 has " + (FifthFilter.f5_counter_TT + FifthFilter.f5_counter_didnt_coefficient) + " no data records ("
+                + FifthFilter.f5_counter_TT + " false_false records and "
+                + FifthFilter.f5_counter_didnt_coefficient + " don't have coefficient).");
+        System.out.println("Filter 5 has " + FifthFilter.f5_counter_errorRecords + " error records.");
+        System.out.println("Filter 5 has " + FifthFilter.f5_counter_filtered + " filtered records.");
+        int allFifthRecords = FifthFilter.f5_counter_TT + FifthFilter.f5_counter_didnt_coefficient + FifthFilter.f5_counter_errorRecords + FifthFilter.f5_counter_filtered + FifthFilter.f5_counter_success;
+        System.out.println("Filter 5 has " + FifthFilter.f5_counter_success + " success records.");
+        if (list.size() != allFifthRecords) {
+            System.err.println("Filter 5 has FAILED record status. Need " + list.size() + ", has "
+                    + allFifthRecords + ".");
+        } else {
+            System.out.println("Filter 5 has SUCCESS record status");
+        }
+        if (FifthFilter.f5_counter_success != 0) {
+            System.out.println("\nSuccess records:");
+            for (Game game : list) {
+                if (game.isFifthFilterComplited()) {
+                    System.out.println(game);
+                }
             }
         }
+        Stats.checkCorrectMatches(list);
     }
 }
