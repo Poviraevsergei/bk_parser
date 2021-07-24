@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.List;
 
 public class Parser {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Siarhey.Pavirayeu\\IdeaProjects\\bk_parser\\src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         List<Game> list = DataInput.inputData(driver);

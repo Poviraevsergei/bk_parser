@@ -12,9 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TeamsAndTime {
-    public static List<Game> getTeamsAndGameTimeList(WebDriver driver) throws IOException {
+    public static List<Game> getTeamsAndGameTimeList(WebDriver driver) throws IOException, InterruptedException {
         List<Game> allGames = new ArrayList<>();
         driver.get("https://www.flashscore.ru/");
+        Thread.sleep(3000);
         WebElement element = driver.findElement(By.xpath("//div[@class=\"sportName soccer\"]"));
         for (String record : element.getAttribute("innerHTML").split("<div id=")) {
 
