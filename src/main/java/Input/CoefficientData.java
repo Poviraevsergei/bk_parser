@@ -23,22 +23,22 @@ public class CoefficientData {
             Matcher matcherCoefficient = Pattern.compile("target=\"_blank\" title=.{12}").matcher(html);
 
             if (matcherCoefficient.find()) {
-                homeCoefficient = getCoefficientFromHmtl(homeCoefficient, html, matcherCoefficient);
+                homeCoefficient = getCoefficientFromHmtl(html, matcherCoefficient);
             }
             if (matcherCoefficient.find()) {
-                drowCoefficient = getCoefficientFromHmtl(drowCoefficient, html, matcherCoefficient);
+                drowCoefficient = getCoefficientFromHmtl(html, matcherCoefficient);
             }
             if (matcherCoefficient.find()) {
-                awayCoefficient = getCoefficientFromHmtl(awayCoefficient, html, matcherCoefficient);
+                awayCoefficient = getCoefficientFromHmtl(html, matcherCoefficient);
             }
             game.getCoefficients().add(homeCoefficient + " | " + drowCoefficient + " | " + awayCoefficient);
         }
     }
 
-    static String getCoefficientFromHmtl(String coefficient, String html, Matcher matcher) {
+    static String getCoefficientFromHmtl(String html, Matcher matcher) {
 
         Matcher matcherCoefficientSecond = Pattern.compile("target=\"_blank\" title=.{22}").matcher(html);
-        coefficient = matcher.group().replace("target=\"_blank\" title=\"", "");
+        String coefficient = matcher.group().replace("target=\"_blank\" title=\"", "");
         if (!coefficient.matches("\\d{1}.\\d{2} » \\d{1}.\\d{2}")) {
             if (matcherCoefficientSecond.find()) {
                 coefficient = matcherCoefficientSecond.group().replace("target=\"_blank\" title=\"\"><span class=\"\">", "");

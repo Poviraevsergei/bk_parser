@@ -36,6 +36,7 @@ public class DataInput {
             String HTML = null;
             try {
                 WebElement element = driver.findElement(By.xpath("//div[@class=\"rows___1BdItrT\"]"));
+             //   Thread.sleep(2000);
                 HTML = element.getAttribute("innerHTML");
             } catch (Exception exception) {
                 game.setCheckTable(false);
@@ -47,7 +48,6 @@ public class DataInput {
                 counter_data_success_table_data++;
             }
         }
-        driver.close();
         System.out.println("Data: " + counter_data_dont_find_table + " records don't have table page.");
         System.out.println("Data: " + (resultList.size() - counter_data_dont_find_table) + " input table data(place,goals)");
         System.out.println("Data: " + counter_data_success_table_data + " success output table data");
@@ -62,7 +62,7 @@ public class DataInput {
             try {
                 driver.get(firstUrlСoefficient + game.getId() + secondUrlСoefficient);
                 List<WebElement> element2 = driver.findElements(By.xpath("//div[@class=\"row___1rtP1QI undefined\"]"));
-                Thread.sleep(2000);
+              //  Thread.sleep(2000);
                 CoefficientData.loadCoefficients(element2, game);
                 if (game.getCoefficients().size() != 0) {
                     counter_data_finish_coefficient++;

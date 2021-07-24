@@ -13,9 +13,6 @@ public class Parser {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Siarhey.Pavirayeu\\IdeaProjects\\bk_parser\\src\\main\\resources\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         List<Game> list = DataInput.inputData(driver);
-        for (Game game : list) {
-            System.out.println(game);
-        }
 
         //First filter
         System.out.println("------------------------------------------------------\nFilter 1 Input: " + list.size());
